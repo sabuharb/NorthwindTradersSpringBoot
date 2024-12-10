@@ -2,6 +2,7 @@ package com.pluralsight.NorthwindTradersSpringBoot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -84,15 +85,23 @@ public class StoreCLI {
     }
 
     private void searchProduct(Scanner scanner) {
-        System.out.print("Enter Product ID to search: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+        System.out.print("Enter a keyword to search (e.g., product name or category): ");
+        String keyword = scanner.nextLine().toLowerCase(); // Convert to lowercase for case-insensitive matching
 
-        Product product = productDao.getProductById(id);
-        if (product != null) {
-            System.out.println("Product Found: " + product);
+        // Filter products by name or category containing the keyword
+        List<com.pluralsight.NorthwindTradersSpringBoot.Product> matchingProducts = productDao.getAllProducts().stream()
+                .filter(product -> product.getName().toLowerCase().contains(keyword) ||
+                        product.getCategory().toLowerCase().contains(keyword))
+                .toList();
+
+        // Display the results
+        if (matchingProducts.isEmpty()) {
+            System.out.println("No matching products found.");
         } else {
-            System.out.println("Product not found.");
+            System.out.println("Matching Products:");
+            for (Product product : matchingProducts) {
+                System.out.println(product);
+            }
         }
     }
 
