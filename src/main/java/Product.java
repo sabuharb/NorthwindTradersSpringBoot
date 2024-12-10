@@ -1,3 +1,5 @@
+package com.pluralsight.NorthwindTradersSpringBoot;
+
 public class Product {
     private int productId;
     private String name;
@@ -12,7 +14,7 @@ public class Product {
         this.price = price;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public int getProductId() {
         return productId;
     }
@@ -47,11 +49,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                '}';
+        return "Product [productId=" + productId + ", name=" + name + ", category=" + category + ", price=" + price + "]";
     }
 }
